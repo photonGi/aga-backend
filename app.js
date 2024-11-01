@@ -20,7 +20,7 @@ const allowedOrigins = ['http://localhost:3000','https://agacrane.com/'];
 
 app.use(cors({
   origin: ['http://localhost:3000','https://agacrane.com'],
-  credentials:true, // Allow your production domain
+  credentials:true,
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 
