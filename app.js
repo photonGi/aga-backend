@@ -16,10 +16,10 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 
 // Configure CORS to handle both HTTP and HTTPS
-const allowedOrigins = "http://localhost:3000"
+const allowedOrigins = ['http://localhost:3000','https://agacrane.com/'];
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow your production domain
+  origin: ['http://localhost:3000','https://agacrane.com/'], // Allow your production domain
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 
