@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 const allowedOrigins = ['http://localhost:3000','https://agacrane.com/'];
 
 app.use(cors({
-  origin: ['http://localhost:3000','https://agacrane.com/'], // Allow your production domain
+  origin: ['http://localhost:3000','https://agacrane.com'], // Allow your production domain
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 
