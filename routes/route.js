@@ -169,6 +169,15 @@ router.delete('/deleteInterest/:id', async (req, res) => {
   }
 });
 
+router.get('/getAllCustomers', async (req, res) => {
+  try {
+    const customers = await Client.find();
+    res.status(200).json({customers});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.get("/getAllProducts", async (req, res) => {
   try {
     const products = await Product.find({});
