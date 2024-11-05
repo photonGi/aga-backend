@@ -7,12 +7,13 @@ const Interest = require("../models/interest");
 const Client = require("../models/client");
 const router = express.Router();
 
+
 router.post("/authAdminlogin", async (req, res) => {
   try {
     const { email, password } = req.body;
     const checkUser = await User.findOne({ email });
     if (!checkUser) {
-      return res.json({ message: "User not found" });
+      return res.status(401).json({ message: "User not found" });
     }
     const checkPassword = await bcrypt.compare(password, checkUser.password);
     if (!checkPassword) {
@@ -53,7 +54,7 @@ router.post("/authAddUser", async (req, res) => {
 
     user.save();
 
-    res.status(201).json({ message: "User created successfully." });
+    res.status(200).json({ message: "User created successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -105,7 +106,7 @@ router.post("/createUserFT", async (req, res) => {
 
     user.save();
 
-    res.status(201).json({ message: "User created successfully." });
+    res.status(200).json({ message: "User created successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -115,26 +116,56 @@ router.post("/addInterest", async (req, res) => {
   try {
     const { productId, userId, comment } = req.body;
 
-    // Check if all required fields are provided
     if (!productId || !userId || !comment) {
       console.log("Missing fields:", { productId, userId, comment });
       return res.status(400).json({ message: "Please provide all fields" });
     }
 
-    // Create the interest in the database
     const interest = await Interest.create({
       productId,
       userId,
       comment,
     });
-
-    // Respond with success
-    console.log("Interest created successfully:", interest);
-    res.status(201).json({ message: "Interest added successfully.", interest });
+    res.status(200).json({ message: "Interest added successfully." });
   } catch (error) {
     // Log the error for debugging
     console.error("Error adding interest:", error);
     res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+router.get('/getAllInterests', async (req, res) => {
+  try {
+    const interests = await Interest.find().populate('userId').populate('productId');
+    res.status(200).json({interests});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getInterestById/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const interest = await Interest.findById(id).populate('userId').populate('productId');
+    if (!interest) {
+      return res.status(404).json({ message: "Interest not found" });
+    }
+    res.status(200).json(interest);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.delete('/deleteInterest/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedInterest = await Interest.findByIdAndDelete(id);
+    if (!deletedInterest) {
+      return res.status(404).json({ message: "Interest not found" });
+    }
+    res.status(200).json({ message: "Interest deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -151,12 +182,33 @@ router.get("/getAllProducts", async (req, res) => {
 router.get("/getProductById/:id", async (req, res) => {
   try {
     const { id } = req.params;
-
     const product = await Product.findById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
     res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.put("/updateProduct/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Update failed, product not found." });
+    }
+
+    res.status(200).json(updatedProduct);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -212,9 +264,22 @@ router.post("/addProduct", async (req, res) => {
       longDescription,
     });
 
-    res.status(201).json({ message: "Product added successfully.", product });
+    res.status(200).json({ message: "Product added successfully.", product });
   } catch (error) {
     console.error("Error adding product:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.delete("/deleteProduct/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ message: "Product deleted successfully." });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });

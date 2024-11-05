@@ -28,7 +28,7 @@ app.use(cors({
 app.use("/api", require("./routes/route"));
 app.use('/',(req,res)=>{
   res.send('Welcome to the server....')
-})
+});
 
 connectDB();
 const port = process.env.PORT || 4000;
