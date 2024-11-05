@@ -73,9 +73,9 @@ router.post("/checkUserFT", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { email: checkUser.email, id: checkUser._id },  // Include user's ID for token payload
+      { email: checkUser.email, id: checkUser._id },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "2h" }  // Optional: Set token expiration time
+      { expiresIn: "2h" } 
     );
 
     return res.status(200).json({ data: token, name: checkUser.name, id:checkUser._id, message: "Login Successfully!" });
