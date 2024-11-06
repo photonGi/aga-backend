@@ -5,6 +5,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  prdStock: {
+    type: String,
+    required: true,
+  },
   prdCategory: {
     type: String,
     required: true,
@@ -43,9 +47,6 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
   workingHours: {
-    type: String,
-  },
-  cabType: {
     type: String,
   },
   engineMake: {

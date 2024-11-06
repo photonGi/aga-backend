@@ -227,6 +227,7 @@ router.post("/addProduct", async (req, res) => {
   try {
     const {
       title,
+      prdStock,
       prdCategory,
       images,
       prdIndustry,
@@ -237,7 +238,6 @@ router.post("/addProduct", async (req, res) => {
       opr_weight,
       manufacture,
       workingHours,
-      cabType,
       engineMake,
       enginePower,
       fuelCapacity,
@@ -254,6 +254,7 @@ router.post("/addProduct", async (req, res) => {
 
     const product = await Product.create({
       title,
+      prdStock,
       prdCategory,
       images,
       prdIndustry,
@@ -264,7 +265,6 @@ router.post("/addProduct", async (req, res) => {
       opr_weight,
       manufacture,
       workingHours,
-      cabType,
       engineMake,
       enginePower,
       fuelCapacity,
