@@ -49,6 +49,12 @@ const productSchema = new mongoose.Schema({
   workingHours: {
     type: String,
   },
+  prdLocation: {
+    type: String,
+  },
+  prdDelivery: {
+    type: String,
+  },
   engineMake: {
     type: String,
   },
