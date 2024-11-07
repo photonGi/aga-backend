@@ -214,7 +214,7 @@ router.put("/updateProduct/:id", async (req, res) => {
       runValidators: true,
     });
     if (!updatedProduct) {
-      return res.status(404).json({ message: "Update failed, product not found." });
+      return res.status(404).json({ message: "Update is failed, product not found." });
     }
 
     res.status(200).json(updatedProduct);
