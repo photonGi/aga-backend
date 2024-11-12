@@ -86,9 +86,9 @@ router.post("/checkUserFT", async (req, res) => {
 
 router.post("/createUserFT", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, phone, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !phone || !password) {
       return res.status(400).json({ message: "Please provide all fields" });
     }
 
@@ -101,6 +101,7 @@ router.post("/createUserFT", async (req, res) => {
     const user = await Client.create({
       name,
       email,
+      phone,
       password: hashPassword,
     });
 
