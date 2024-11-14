@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
   prdType: {
     type: String,
     required: true,
-    enum: ["Off Road Trucks", "Excavators","Crawler Cranes","Crawler Dozers","Wheel Loaders","Compactors"],
+    enum: ["Off Road Trucks", "Excavators","Crawler Cranes","Crawler Dozers","Wheel Loaders","Mobile Cranes","Compactors"],
   },
   ref_number: {
     type: String,
@@ -46,22 +46,16 @@ const productSchema = new mongoose.Schema({
   manufacture: {
     type: String,
   },
-  workingHours: {
+  prdModel: {
+    type: String,
+  },
+  prdYear: {
     type: String,
   },
   prdLocation: {
     type: String,
   },
   prdDelivery: {
-    type: String,
-  },
-  engineMake: {
-    type: String,
-  },
-  enginePower: {
-    type: String,
-  },
-  fuelCapacity: {
     type: String,
   },
   productColor: {
