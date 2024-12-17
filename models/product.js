@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
   prdIndustry: {
     type: String,
     required: true,
-    enum: ["Construction", "Quarry & Aggregate","Mining","Oil & Gas"],
+    enum: ["Construction", "Quarry & Aggregate", "Mining", "Oil & Gas"],
   },
   prdCondition: {
     type: String,
@@ -35,7 +35,6 @@ const productSchema = new mongoose.Schema({
   prdType: {
     type: String,
     required: true,
-    enum: ["Off Road Trucks", "Excavators","Crawler Cranes","Crawler Dozers","Wheel Loaders","Mobile Cranes","Compactors"],
   },
   ref_number: {
     type: String,
@@ -67,10 +66,10 @@ const productSchema = new mongoose.Schema({
   longDescription: {
     type: String,
   },
-  createdAt:{
+  createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);
